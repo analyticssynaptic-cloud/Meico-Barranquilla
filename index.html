@@ -152,32 +152,47 @@ nav{position:sticky;top:0;z-index:9000;background:rgba(255,255,255,0.97);backdro
 .prod-total{display:block;font-family:'Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:900;color:var(--red);}
 .prod-total-lab{font-size:0.6rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
 
-/* ========== GALERÍA CARRUSEL ========== */
+/* ========== GALERÍA CARRUSEL CENTRADO ========== */
 .gallery-section{background:var(--dark);padding:80px 0;overflow:hidden;}
 .gallery-section .eyebrow{color:var(--red-b);}
 .gallery-section .sec-h2{color:#fff;}
 .gallery-section .sec-lead{color:rgba(255,255,255,0.5);}
-.gallery-count{text-align:center;font-size:0.68rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:28px;}
-.car-outer{overflow:hidden;padding:0 5%;position:relative;}
-.car-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px;scrollbar-width:none;scroll-behavior:smooth;}
-.car-track::-webkit-scrollbar{display:none;}
-.car-item{scroll-snap-align:start;min-width:calc(25% - 11px);aspect-ratio:4/3;border-radius:14px;overflow:hidden;cursor:pointer;position:relative;flex-shrink:0;background:rgba(255,255,255,0.05);}
-.car-item img{width:100%;height:100%;object-fit:cover;transition:transform .35s;display:block;}
-.car-item:hover img{transform:scale(1.05);}
-.car-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,transparent 60%);opacity:0;transition:.3s;display:flex;align-items:flex-end;padding:14px;}
-.car-item:hover .car-overlay{opacity:1;}
-.car-overlay span{font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.9);}
-/* skeleton */
-.car-skeleton{width:100%;height:100%;background:linear-gradient(90deg,rgba(255,255,255,0.04) 25%,rgba(255,255,255,0.08) 50%,rgba(255,255,255,0.04) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:14px;}
+.gallery-count{text-align:center;font-size:0.68rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:32px;}
+
+/* Stage único - foto central */
+.car-stage{position:relative;width:100%;max-width:860px;margin:0 auto;aspect-ratio:16/10;border-radius:20px;overflow:hidden;background:rgba(255,255,255,0.04);box-shadow:0 32px 80px rgba(0,0,0,0.6);}
+.car-slide{position:absolute;inset:0;opacity:0;transition:opacity .55s ease, transform .55s ease;transform:scale(1.03);}
+.car-slide.active{opacity:1;transform:scale(1);}
+.car-slide.exit-left{opacity:0;transform:translateX(-4%) scale(0.98);}
+.car-slide.exit-right{opacity:0;transform:translateX(4%) scale(0.98);}
+.car-slide img{width:100%;height:100%;object-fit:cover;display:block;}
+.car-slide-label{position:absolute;bottom:0;left:0;right:0;padding:20px 24px 18px;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,transparent 100%);font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.85);}
+/* skeleton dentro del stage */
+.car-skeleton{width:100%;height:100%;background:linear-gradient(90deg,rgba(255,255,255,0.04) 25%,rgba(255,255,255,0.08) 50%,rgba(255,255,255,0.04) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;}
 @keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
-.car-nav-row{display:flex;justify-content:center;align-items:center;gap:16px;padding:24px 5% 0;}
-.car-btn{background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.2);border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:white;transition:.2s;}
-.car-btn:hover{background:var(--red);border-color:var(--red);}
-.car-dots{display:flex;gap:8px;}
-.car-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.2);cursor:pointer;transition:.3s;}
+
+/* Botones prev/next sobre el stage */
+.car-btn-prev,.car-btn-next{position:absolute;top:50%;transform:translateY(-50%);z-index:10;background:rgba(0,0,0,0.45);border:1.5px solid rgba(255,255,255,0.2);border-radius:50%;width:52px;height:52px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:white;font-size:1rem;transition:.2s;backdrop-filter:blur(8px);}
+.car-btn-prev{left:16px;}
+.car-btn-next{right:16px;}
+.car-btn-prev:hover,.car-btn-next:hover{background:var(--red);border-color:var(--red);}
+
+/* Controles inferiores */
+.car-controls{display:flex;justify-content:center;align-items:center;gap:16px;margin-top:28px;}
+.car-dots{display:flex;gap:8px;align-items:center;}
+.car-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.2);cursor:pointer;transition:.3s;border:none;padding:0;}
 .car-dot.active{background:var(--red);width:24px;border-radius:4px;}
-.car-drive-link{display:inline-flex;align-items:center;gap:8px;background:transparent;border:1.5px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.7);padding:10px 22px;border-radius:30px;font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;margin-left:12px;transition:.2s;}
+.car-counter{font-family:'Barlow Condensed',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,0.4);min-width:56px;text-align:center;}
+.car-drive-link{display:inline-flex;align-items:center;gap:8px;background:transparent;border:1.5px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);padding:9px 20px;border-radius:30px;font-size:0.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:.2s;}
 .car-drive-link:hover{background:var(--red);border-color:var(--red);color:white;}
+
+/* Thumbnails strip debajo */
+.car-thumbs{display:flex;gap:10px;justify-content:center;margin-top:20px;padding:0 5%;overflow-x:auto;scrollbar-width:none;}
+.car-thumbs::-webkit-scrollbar{display:none;}
+.car-thumb{width:68px;height:50px;border-radius:8px;overflow:hidden;flex-shrink:0;cursor:pointer;opacity:.45;border:2px solid transparent;transition:.25s;}
+.car-thumb.active{opacity:1;border-color:var(--red);}
+.car-thumb:hover{opacity:.8;}
+.car-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
 
 /* LIGHTBOX */
 .lightbox{display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.96);align-items:center;justify-content:center;}
@@ -498,21 +513,33 @@ footer{background:#0D0000;padding:60px 5% 32px;}
 </div>
 </div>
 
-<!-- GALERÍA CARRUSEL -->
+<!-- GALERÍA CARRUSEL CENTRADO -->
 <div id="galeria" class="gallery-section">
   <div class="sec-head reveal" style="padding:0 5% 8px;">
     <div class="eyebrow">Registro Visual · Campo · Barranquilla</div>
     <div class="sec-h2">Galería de Campaña</div>
     <p class="sec-lead">Evidencia fotográfica de la activación Meico en los 12 puntos de venta STO/SAO durante el fin de semana de las Madres.</p>
   </div>
-  <div class="gallery-count" id="galleryCount">Cargando fotografías desde Google Drive…</div>
-  <div class="car-outer" id="carOuter"><div class="car-track" id="carTrack"></div></div>
-  <div class="car-nav-row">
-    <button class="car-btn" id="btnPrev" onclick="carNav(-1)"><i class="fas fa-chevron-left"></i></button>
-    <div class="car-dots" id="carDots"></div>
-    <button class="car-btn" id="btnNext" onclick="carNav(1)"><i class="fas fa-chevron-right"></i></button>
-    <a class="car-drive-link" href="https://drive.google.com/drive/folders/12Bg8wHM_OlMfxPXBnUml1ocMciFbHVzE?usp=sharing" target="_blank"><i class="fas fa-external-link-alt"></i>&nbsp; Ver en Drive</a>
+  <div class="gallery-count" id="galleryCount">Cargando fotografías…</div>
+
+  <!-- Stage foto central -->
+  <div style="padding:0 5%;">
+    <div class="car-stage" id="carStage">
+      <div class="car-skeleton" id="carSkeleton"></div>
+    </div>
   </div>
+
+  <!-- Controles -->
+  <div class="car-controls">
+    <span class="car-counter" id="carCounter">— / —</span>
+    <div class="car-dots" id="carDots"></div>
+    <a class="car-drive-link" href="https://drive.google.com/drive/folders/12Bg8wHM_OlMfxPXBnUml1ocMciFbHVzE?usp=sharing" target="_blank">
+      <i class="fas fa-external-link-alt"></i>&nbsp;Ver en Drive
+    </a>
+  </div>
+
+  <!-- Thumbnails strip -->
+  <div class="car-thumbs" id="carThumbs"></div>
 </div>
 
 <!-- LIGHTBOX -->
@@ -642,133 +669,346 @@ function goTo(id){
   if(event&&event.target) event.target.classList.add('active');
 }
 
-// ============ GALERÍA CARRUSEL ============
-var FOLDER_ID = '12Bg8wHM_OlMfxPXBnUml1ocMciFbHVzE';
-var driveIds = [];
-var carIdx = 0;
-var lbIdx  = 0;
-var PAGE   = 4;
-var labels = ['Activación PDV','Degustación Moelia','Equipo de Campo','Viernes Madres','Portafolio Meico','Shopper Interaction','Prado Alto','Moelia Rose','Lambrusco Botticello','Terra Vega','Evidencia Venta','Cierre Madres','Portal del Prado','SAO 093 Cr46','Villa Carolina','Buena Vista'];
+// ============ GALERÍA CARRUSEL CENTRADO ============
+var FOLDER_ID   = '12Bg8wHM_OlMfxPXBnUml1ocMciFbHVzE';
+var photoUrls   = [];   // {src, thumb} para cada foto
+var curIdx      = 0;
+var isAnimating = false;
+var autoTimer   = null;
+var lbIdx       = 0;
+var labels      = ['Activación PDV','Degustación Moelia','Equipo de Campo','Viernes Madres',
+                   'Portafolio Meico','Shopper Barranquilla','Prado Alto','Moelia Rose',
+                   'Lambrusco Botticello','Terra Vega','Evidencia de Venta','Cierre Madres',
+                   'Portal del Prado','SAO 093 Cr 46','Villa Carolina','Buena Vista',
+                   'Miramar','El Golf','SAO 544','Villa Country','Mallorquín'];
 
-function buildSkeletons(){
-  var track = document.getElementById('carTrack');
-  for(var i=0;i<8;i++){
-    var item=document.createElement('div');
-    item.className='car-item';
-    item.innerHTML='<div class="car-skeleton"></div>';
-    track.appendChild(item);
-  }
-}
+/* ── Construir carrusel centrado ── */
+function buildCarousel() {
+  var TOTAL  = photoUrls.length;
+  var stage  = document.getElementById('carStage');
+  var dotsEl = document.getElementById('carDots');
+  var thumbs = document.getElementById('carThumbs');
 
-function buildCarousel(){
-  var track=document.getElementById('carTrack');
-  var dotsEl=document.getElementById('carDots');
-  var TOTAL=driveIds.length;
-  track.innerHTML='';
-  dotsEl.innerHTML='';
-  document.getElementById('galleryCount').textContent=TOTAL+' fotografías · haz clic para ampliar';
+  var skel = document.getElementById('carSkeleton');
+  if (skel) skel.remove();
+  stage.innerHTML = '';
+  dotsEl.innerHTML = '';
+  thumbs.innerHTML = '';
 
-  driveIds.forEach(function(id,i){
-    var item=document.createElement('div');
-    item.className='car-item';
-    item.innerHTML='<img src="https://drive.google.com/thumbnail?id='+id+'&sz=w600" alt="Meico Madres '+( i+1)+'" loading="lazy"><div class="car-overlay"><span><i class="fas fa-expand-alt"></i>&nbsp;'+labels[i%labels.length]+'</span></div>';
-    item.addEventListener('click',function(){openLB(i);});
-    track.appendChild(item);
+  document.getElementById('galleryCount').textContent =
+    TOTAL + ' fotografías  ·  usa las flechas o haz clic';
+
+  /* Slides */
+  photoUrls.forEach(function(p, i) {
+    var s = document.createElement('div');
+    s.className = 'car-slide' + (i === 0 ? ' active' : '');
+    s.id = 'slide-' + i;
+    s.innerHTML =
+      '<img src="' + p.src + '" alt="Foto ' + (i+1) + '" ' +
+      'loading="' + (i < 3 ? 'eager' : 'lazy') + '">' +
+      '<div class="car-slide-label">' +
+        '<i class="fas fa-camera" style="margin-right:6px;opacity:.65;"></i>' +
+        labels[i % labels.length] +
+      '</div>';
+    stage.appendChild(s);
   });
 
-  var numDots=Math.ceil(TOTAL/PAGE);
-  for(var d=0;d<numDots;d++){
-    var dot=document.createElement('div');
-    dot.className='car-dot'+(d===0?' active':'');
-    (function(dd){dot.addEventListener('click',function(){carIdx=dd*PAGE;scrollCar();})})(d);
+  /* Botones sobre el stage */
+  var bp = document.createElement('button');
+  bp.className = 'car-btn-prev';
+  bp.innerHTML = '<i class="fas fa-chevron-left"></i>';
+  bp.onclick   = function() { goSlide(-1); };
+  stage.appendChild(bp);
+
+  var bn = document.createElement('button');
+  bn.className = 'car-btn-next';
+  bn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+  bn.onclick   = function() { goSlide(1); };
+  stage.appendChild(bn);
+
+  /* Click en imagen → lightbox */
+  stage.addEventListener('click', function(e) {
+    if (e.target.tagName === 'IMG') openLB(curIdx);
+  });
+
+  /* Dots */
+  var maxDots = Math.min(TOTAL, 14);
+  for (var d = 0; d < maxDots; d++) {
+    var dot = document.createElement('button');
+    dot.className = 'car-dot' + (d === 0 ? ' active' : '');
+    (function(dd) { dot.onclick = function() { goToSlide(dd); }; })(d);
     dotsEl.appendChild(dot);
   }
+
+  /* Thumbnails strip */
+  photoUrls.forEach(function(p, i) {
+    var t = document.createElement('div');
+    t.className = 'car-thumb' + (i === 0 ? ' active' : '');
+    t.id = 'thumb-' + i;
+    t.innerHTML = '<img src="' + p.thumb + '" loading="lazy" alt="">';
+    (function(ii) { t.onclick = function() { goToSlide(ii); }; })(i);
+    thumbs.appendChild(t);
+  });
+
+  updateCounter();
+  startAuto();
+
+  /* Swipe */
+  var tx = 0;
+  stage.addEventListener('touchstart', function(e) { tx = e.touches[0].clientX; }, { passive:true });
+  stage.addEventListener('touchend',   function(e) {
+    var dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 40) goSlide(dx < 0 ? 1 : -1);
+  }, { passive:true });
+
+  /* Pausa en hover */
+  stage.addEventListener('mouseenter', stopAuto);
+  stage.addEventListener('mouseleave', startAuto);
 }
 
-function scrollCar(){
-  var items=document.querySelectorAll('.car-item');
-  if(items[carIdx]) items[carIdx].scrollIntoView({behavior:'smooth',inline:'start',block:'nearest'});
-  var dotEls=document.querySelectorAll('.car-dot');
-  var active=Math.floor(carIdx/PAGE);
-  dotEls.forEach(function(d,i){d.classList.toggle('active',i===active);});
+function goSlide(dir) {
+  if (!photoUrls.length || isAnimating) return;
+  goToSlide((curIdx + dir + photoUrls.length) % photoUrls.length);
 }
 
-function carNav(dir){
-  var TOTAL=driveIds.length;
-  if(!TOTAL) return;
-  carIdx=Math.max(0,Math.min(TOTAL-1,carIdx+dir*PAGE));
-  scrollCar();
+function goToSlide(idx) {
+  if (idx === curIdx || isAnimating) return;
+  isAnimating = true;
+  stopAuto();
+
+  var dir      = idx > curIdx ? 1 : -1;
+  var oldSlide = document.getElementById('slide-' + curIdx);
+  var newSlide = document.getElementById('slide-' + idx);
+
+  if (oldSlide) {
+    oldSlide.classList.remove('active');
+    oldSlide.classList.add(dir > 0 ? 'exit-left' : 'exit-right');
+  }
+  if (newSlide) {
+    newSlide.style.opacity   = '0';
+    newSlide.style.transform = 'translateX(' + (dir > 0 ? '5%' : '-5%') + ') scale(0.98)';
+    newSlide.classList.add('active');
+    void newSlide.offsetWidth;
+    newSlide.style.opacity   = '';
+    newSlide.style.transform = '';
+  }
+
+  curIdx = idx;
+  updateCounter();
+  updateDots();
+  updateThumbs();
+
+  setTimeout(function() {
+    document.querySelectorAll('.car-slide.exit-left,.car-slide.exit-right').forEach(function(s) {
+      s.classList.remove('exit-left','exit-right');
+    });
+    isAnimating = false;
+    startAuto();
+  }, 580);
 }
 
-// Fetch IDs from Drive folder embed page via CORS proxy (runs in user's browser)
-function fetchDriveIds(){
-  buildSkeletons();
-  // Try allorigins CORS proxy to get the embeddedfolderview HTML and parse thumbnails
-  var proxy='https://api.allorigins.win/get?url=';
-  var target=encodeURIComponent('https://drive.google.com/embeddedfolderview?id='+FOLDER_ID+'%23grid');
-  fetch(proxy+target,{signal:AbortSignal.timeout(8000)})
-    .then(function(r){return r.json();})
-    .then(function(data){
-      var html=data.contents||'';
-      // Extract file IDs from thumbnail URLs: lh3.googleusercontent.com/d/FILE_ID
-      var matches=[...html.matchAll(/lh3\.googleusercontent\.com\/d\/([A-Za-z0-9_-]{25,40})/g)];
-      var ids=[...new Set(matches.map(function(m){return m[1];}))];
-      if(ids.length>0){
-        driveIds=ids;
-        buildCarousel();
-      } else {
-        // Try extracting from data-id attributes or other patterns
-        var matches2=[...html.matchAll(/["']([A-Za-z0-9_-]{28,33})["']/g)];
-        var ids2=[...new Set(matches2.map(function(m){return m[1];}))].filter(function(id){return id!==FOLDER_ID&&id.length>=28;});
-        if(ids2.length>2){
-          driveIds=ids2.slice(0,50);
-          buildCarousel();
-        } else {
-          showDriveFallback();
-        }
-      }
-    })
-    .catch(function(){ showDriveFallback(); });
+function updateCounter() {
+  var el = document.getElementById('carCounter');
+  if (el) el.textContent = (curIdx+1) + ' / ' + photoUrls.length;
 }
+function updateDots() {
+  document.querySelectorAll('.car-dot').forEach(function(d,i) {
+    d.classList.toggle('active', i === (curIdx % 14));
+  });
+}
+function updateThumbs() {
+  document.querySelectorAll('.car-thumb').forEach(function(t,i) {
+    t.classList.toggle('active', i === curIdx);
+  });
+  var at = document.getElementById('thumb-' + curIdx);
+  if (at) at.scrollIntoView({ behavior:'smooth', block:'nearest', inline:'center' });
+}
+function startAuto() {
+  stopAuto();
+  if (photoUrls.length > 1) autoTimer = setInterval(function() { goSlide(1); }, 5000);
+}
+function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
 
-function showDriveFallback(){
-  // If proxy fails, show styled iframe as fallback within the gallery section
-  var track=document.getElementById('carTrack');
-  track.innerHTML='';
-  document.getElementById('galleryCount').textContent='Galería · Google Drive · Haz clic en las fotos para ampliar';
-  var container=document.getElementById('carOuter');
-  container.style.padding='0 5%';
-  container.innerHTML='<iframe src="https://drive.google.com/embeddedfolderview?id='+FOLDER_ID+'#grid" style="width:100%;height:540px;border:none;border-radius:16px;background:#111;" loading="lazy" title="Galería Meico Madres Barranquilla"></iframe>';
-}
-
-function openLB(idx){
-  if(!driveIds.length) return;
-  lbIdx=idx;
-  document.getElementById('lbImg').src='https://drive.google.com/thumbnail?id='+driveIds[idx]+'&sz=w1200';
-  document.getElementById('lbCounter').textContent=(idx+1)+' / '+driveIds.length;
-  document.getElementById('lightbox').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeLB(){
-  document.getElementById('lightbox').classList.remove('open');
-  document.body.style.overflow='';
-}
-function navLB(dir){
-  if(!driveIds.length) return;
-  lbIdx=(lbIdx+dir+driveIds.length)%driveIds.length;
-  document.getElementById('lbImg').src='https://drive.google.com/thumbnail?id='+driveIds[lbIdx]+'&sz=w1200';
-  document.getElementById('lbCounter').textContent=(lbIdx+1)+' / '+driveIds.length;
-}
-document.getElementById('lightbox').addEventListener('click',function(e){if(e.target===this)closeLB();});
-document.addEventListener('keydown',function(e){
-  if(!document.getElementById('lightbox').classList.contains('open'))return;
-  if(e.key==='Escape')closeLB();
-  if(e.key==='ArrowRight')navLB(1);
-  if(e.key==='ArrowLeft')navLB(-1);
+/* ── Keyboard (carousel) ── */
+document.addEventListener('keydown', function(e) {
+  if (document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'ArrowRight') goSlide(1);
+  if (e.key === 'ArrowLeft')  goSlide(-1);
 });
 
-// Init gallery
-fetchDriveIds();
+/* ── Parsear HTML: extraer URLs de imágenes ── */
+function parseImagesFromHTML(html) {
+  var results = [];
+  var seen    = {};
+
+  /* 1. lh3.googleusercontent.com/d/FILE_ID  → usar drive/thumbnail */
+  var re1 = /lh3\.googleusercontent\.com\/d\/([A-Za-z0-9_-]{20,44})/g, m;
+  while ((m = re1.exec(html)) !== null) {
+    var id = m[1];
+    if (!seen[id]) {
+      seen[id] = true;
+      results.push({
+        src   : 'https://drive.google.com/thumbnail?id=' + id + '&sz=w900',
+        thumb : 'https://drive.google.com/thumbnail?id=' + id + '&sz=w120',
+        lb    : 'https://drive.google.com/thumbnail?id=' + id + '&sz=w1400'
+      });
+    }
+  }
+
+  /* 2. URL completa lh3 → usar directamente, escalar tamaño */
+  var re2 = /https?:\/\/lh3\.googleusercontent\.com\/[A-Za-z0-9_\/\-=\.%?&+!@,;:#~*]+/g;
+  while ((m = re2.exec(html)) !== null) {
+    var raw  = m[0].replace(/['"<>)\s]+$/, '');
+    var base = raw.split('=')[0];   // antes del primer =
+    var key  = base.slice(-20);
+    if (!seen[key] && base.length > 30) {
+      seen[key] = true;
+      results.push({
+        src   : base + '=w900',
+        thumb : base + '=w120',
+        lb    : base + '=w1400'
+      });
+    }
+  }
+
+  /* 3. data-id / file/d/ / open?id= / uc?id=  → drive thumbnail */
+  var idPats = [
+    /data-id="([A-Za-z0-9_-]{20,40})"/g,
+    /\/file\/d\/([A-Za-z0-9_-]{20,40})\//g,
+    /[?&]id=([A-Za-z0-9_-]{20,40})/g,
+    /"id"\s*:\s*"([A-Za-z0-9_-]{20,40})"/g
+  ];
+  idPats.forEach(function(re) {
+    var mm;
+    while ((mm = re.exec(html)) !== null) {
+      var id = mm[1];
+      if (!seen[id] && id !== FOLDER_ID) {
+        seen[id] = true;
+        results.push({
+          src   : 'https://drive.google.com/thumbnail?id=' + id + '&sz=w900',
+          thumb : 'https://drive.google.com/thumbnail?id=' + id + '&sz=w120',
+          lb    : 'https://drive.google.com/thumbnail?id=' + id + '&sz=w1400'
+        });
+      }
+    }
+  });
+
+  return results;
+}
+
+/* ── Fetch con múltiples proxies ── */
+function tryProxies(urlToFetch, onSuccess, onFail) {
+  var proxies = [
+    'https://api.allorigins.win/raw?url=',
+    'https://api.allorigins.win/get?url=',
+    'https://corsproxy.io/?'
+  ];
+  var idx = 0;
+
+  function tryNext() {
+    if (idx >= proxies.length) { onFail(); return; }
+    var proxy = proxies[idx++];
+    fetch(proxy + encodeURIComponent(urlToFetch), { signal: AbortSignal.timeout(10000) })
+      .then(function(r) {
+        if (!r.ok) { tryNext(); return; }
+        return r.text();
+      })
+      .then(function(txt) {
+        if (!txt) { tryNext(); return; }
+        /* allorigins /get devuelve JSON con .contents */
+        var content = txt;
+        try { var j = JSON.parse(txt); if (j.contents) content = j.contents; } catch(e){}
+        onSuccess(content);
+      })
+      .catch(tryNext);
+  }
+  tryNext();
+}
+
+function fetchAndBuild() {
+  var embedUrl = 'https://drive.google.com/embeddedfolderview?id=' + FOLDER_ID + '#grid';
+  tryProxies(
+    embedUrl,
+    function(html) {
+      var imgs = parseImagesFromHTML(html);
+      if (imgs.length > 0) {
+        photoUrls = imgs;
+        buildCarousel();
+      } else {
+        /* Proxy respondió pero sin imágenes: intentar con la carpeta normal */
+        tryProxies(
+          'https://drive.google.com/drive/folders/' + FOLDER_ID,
+          function(html2) {
+            var imgs2 = parseImagesFromHTML(html2);
+            if (imgs2.length > 0) { photoUrls = imgs2; buildCarousel(); }
+            else { showFallback(); }
+          },
+          showFallback
+        );
+      }
+    },
+    showFallback
+  );
+}
+
+/* ── Fallback elegante (no grid feo) ── */
+function showFallback() {
+  document.getElementById('galleryCount').textContent = 'Fotos disponibles en Google Drive';
+  var stage = document.getElementById('carStage');
+  stage.style.aspectRatio = 'auto';
+  stage.style.height      = '420px';
+  stage.style.display     = 'flex';
+  stage.style.alignItems  = 'center';
+  stage.style.justifyContent = 'center';
+  stage.style.flexDirection  = 'column';
+  stage.style.gap         = '24px';
+  stage.style.background  = 'rgba(255,255,255,0.04)';
+  stage.innerHTML =
+    '<div style="text-align:center;padding:40px;">' +
+      '<i class="fas fa-images" style="font-size:3rem;color:rgba(255,255,255,0.3);margin-bottom:20px;display:block;"></i>' +
+      '<div style="font-family:Barlow Condensed,sans-serif;font-size:1.3rem;font-weight:800;color:white;letter-spacing:2px;margin-bottom:10px;">GALERÍA DE LA CAMPAÑA</div>' +
+      '<p style="font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.6;max-width:360px;margin:0 auto 28px;">Las fotografías están en tu Google Drive. Ábrelas directamente desde el botón para verlas en alta calidad.</p>' +
+      '<a href="https://drive.google.com/drive/folders/' + FOLDER_ID + '?usp=sharing" target="_blank" ' +
+        'style="display:inline-flex;align-items:center;gap:10px;background:var(--red);color:white;padding:14px 28px;border-radius:30px;font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:0.9rem;letter-spacing:2px;text-transform:uppercase;text-decoration:none;">' +
+        '<i class="fab fa-google-drive"></i>&nbsp;Abrir Galería en Drive</a>' +
+    '</div>';
+  document.getElementById('carThumbs').style.display = 'none';
+}
+
+/* ── Lightbox ── */
+function openLB(idx) {
+  if (!photoUrls.length) return;
+  lbIdx = idx;
+  var lb = photoUrls[idx].lb || photoUrls[idx].src;
+  document.getElementById('lbImg').src = lb;
+  document.getElementById('lbCounter').textContent = (idx+1) + ' / ' + photoUrls.length;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  stopAuto();
+}
+function closeLB() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+  startAuto();
+}
+function navLB(dir) {
+  if (!photoUrls.length) return;
+  lbIdx = (lbIdx + dir + photoUrls.length) % photoUrls.length;
+  document.getElementById('lbImg').src = photoUrls[lbIdx].lb || photoUrls[lbIdx].src;
+  document.getElementById('lbCounter').textContent = (lbIdx+1) + ' / ' + photoUrls.length;
+}
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLB();
+});
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape')      closeLB();
+  if (e.key === 'ArrowRight')  navLB(1);
+  if (e.key === 'ArrowLeft')   navLB(-1);
+});
+
+var lbIdx = 0;
+fetchAndBuild();
 
 // REVEAL
 var obs=new IntersectionObserver(function(entries){
