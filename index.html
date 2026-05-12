@@ -160,12 +160,12 @@ nav{position:sticky;top:0;z-index:9000;background:rgba(255,255,255,0.97);backdro
 .gallery-count{text-align:center;font-size:0.68rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:32px;}
 
 /* Stage único - foto central */
-.car-stage{position:relative;width:100%;max-width:860px;margin:0 auto;aspect-ratio:16/10;border-radius:20px;overflow:hidden;background:rgba(255,255,255,0.04);box-shadow:0 32px 80px rgba(0,0,0,0.6);}
+.car-stage{position:relative;width:100%;max-width:660px;margin:0 auto;border-radius:20px;overflow:hidden;background:#0a0a0a;box-shadow:0 32px 80px rgba(0,0,0,0.7);}
 .car-slide{position:absolute;inset:0;opacity:0;transition:opacity .55s ease, transform .55s ease;transform:scale(1.03);}
 .car-slide.active{opacity:1;transform:scale(1);}
 .car-slide.exit-left{opacity:0;transform:translateX(-4%) scale(0.98);}
 .car-slide.exit-right{opacity:0;transform:translateX(4%) scale(0.98);}
-.car-slide img{width:100%;height:100%;object-fit:cover;display:block;}
+.car-slide img{width:100%;height:100%;object-fit:contain;display:block;background:#0a0a0a;}
 .car-slide-label{position:absolute;bottom:0;left:0;right:0;padding:20px 24px 18px;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,transparent 100%);font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.85);}
 /* skeleton dentro del stage */
 .car-skeleton{width:100%;height:100%;background:linear-gradient(90deg,rgba(255,255,255,0.04) 25%,rgba(255,255,255,0.08) 50%,rgba(255,255,255,0.04) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;}
@@ -524,7 +524,7 @@ footer{background:#0D0000;padding:60px 5% 32px;}
 
   <!-- Stage foto central -->
   <div style="padding:0 5%;">
-    <div class="car-stage" id="carStage">
+    <div class="car-stage" id="carStage" style="min-height:540px;">
       <div class="car-skeleton" id="carSkeleton"></div>
     </div>
   </div>
@@ -752,6 +752,23 @@ function buildCarousel() {
 
   updateCounter();
   startAuto();
+
+  /* Ajustar altura del stage al cargar la primera imagen */
+  var firstImg = document.querySelector('#slide-0 img');
+  if (firstImg) {
+    function adjustHeight() {
+      var ratio = firstImg.naturalHeight / firstImg.naturalWidth;
+      if (ratio > 0) {
+        var stageW = document.getElementById('carStage').offsetWidth;
+        // portrait: use full ratio; landscape: cap at 80vh
+        var h = stageW * ratio;
+        var maxH = window.innerHeight * 0.82;
+        document.getElementById('carStage').style.minHeight = Math.min(h, maxH) + 'px';
+      }
+    }
+    if (firstImg.complete && firstImg.naturalWidth > 0) adjustHeight();
+    else firstImg.addEventListener('load', adjustHeight);
+  }
 
   /* Swipe */
   var tx = 0;
