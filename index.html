@@ -753,17 +753,20 @@ function buildCarousel() {
   updateCounter();
   startAuto();
 
-  /* Ajustar altura del stage al cargar la primera imagen */
+  /* Ajustar altura del stage al cargar la primera imagen — sin tocar scroll de página */
   var firstImg = document.querySelector('#slide-0 img');
   if (firstImg) {
     function adjustHeight() {
       var ratio = firstImg.naturalHeight / firstImg.naturalWidth;
       if (ratio > 0) {
-        var stageW = document.getElementById('carStage').offsetWidth;
-        // portrait: use full ratio; landscape: cap at 80vh
-        var h = stageW * ratio;
-        var maxH = window.innerHeight * 0.82;
-        document.getElementById('carStage').style.minHeight = Math.min(h, maxH) + 'px';
+        var stageEl = document.getElementById('carStage');
+        var stageW  = stageEl.getBoundingClientRect().width;
+        var h       = stageW * ratio;
+        var maxH    = window.innerHeight * 0.82;
+        var scrollY = window.scrollY || window.pageYOffset;
+        stageEl.style.minHeight = Math.min(h, maxH) + 'px';
+        // Restaurar posición de scroll por si el resize movió algo
+        window.scrollTo({ top: scrollY, behavior: 'instant' });
       }
     }
     if (firstImg.complete && firstImg.naturalWidth > 0) adjustHeight();
@@ -837,8 +840,13 @@ function updateThumbs() {
   document.querySelectorAll('.car-thumb').forEach(function(t,i) {
     t.classList.toggle('active', i === curIdx);
   });
-  var at = document.getElementById('thumb-' + curIdx);
-  if (at) at.scrollIntoView({ behavior:'smooth', block:'nearest', inline:'center' });
+  // Solo scroll horizontal dentro del strip, nunca toca el scroll vertical de la página
+  var at        = document.getElementById('thumb-' + curIdx);
+  var container = document.getElementById('carThumbs');
+  if (at && container) {
+    var target = at.offsetLeft - (container.offsetWidth / 2) + (at.offsetWidth / 2);
+    container.scrollLeft = target;
+  }
 }
 function startAuto() {
   stopAuto();
